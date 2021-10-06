@@ -22,5 +22,5 @@ jobs:
         run: env
       - name: Get token
         run: |
-          echo curl -i https://$ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
-          curl -i https://$ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
+          echo curl -i $ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
+          curl -i $ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
