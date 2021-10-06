@@ -1,6 +1,7 @@
 name: federate
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - '*'
