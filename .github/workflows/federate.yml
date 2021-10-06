@@ -22,7 +22,14 @@ jobs:
         run: env
       - name: Get token
         run: |
+          curl -sLS https://cli.openfaas.com | sudo sh
+
           echo curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
           FOO=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $FOO | jq -j '.value')
-          curl -siLS https://minty.exit.o6s.io/validate -H "Content-type application/json" -H "Authorization: Bearer $JWT"
+
+          export OPENFAAS_URL=https://minty.exit.o6s.io/
+
+          faas-cli list --token "$JWT"
+
+          # curl -siLS https://minty.exit.o6s.io/ -H "Content-type application/json" -H "Authorization: Bearer $JWT"
