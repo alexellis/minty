@@ -22,6 +22,6 @@ jobs:
         run: env
       - name: Get token
         run: |
-          echo curl -i $ACTIONS_ID_TOKEN_REQUEST_URL?audience=o6s -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
-          FOO=$(curl -H "User-Agent: actions/oidc-client" -i $ACTIONS_ID_TOKEN_REQUEST_URL?audience=o6s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+          echo curl -i $ACTIONS_ID_TOKEN_REQUEST_URL&audience=o6s -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
+          FOO=$(curl -H "User-Agent: actions/oidc-client" -i $ACTIONS_ID_TOKEN_REQUEST_URL&audience=o6s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           curl https://minty.exit.o6s.io/github-oidc-token --data-binary "$FOO"
