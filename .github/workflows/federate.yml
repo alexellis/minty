@@ -24,4 +24,5 @@ jobs:
         run: |
           echo curl -i "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" 
           FOO=$(curl -i "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
-          curl https://minty.exit.o6s.io/github-oidc-token --data-binary "$FOO"
+          JWT=$(echo $FOO | jq -j '.value')
+          curl https://minty.exit.o6s.io/validate -H "Content-type application/json" -H "Authorization: Bearer $JWT"
