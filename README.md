@@ -18,3 +18,7 @@ How does it work?
 7) Use the JWT via the `--token` flag with the `faas-cli`
 
 Next, trigger a commit using this forked repository. If your name is in the owners list, this will work. If not, it will fail.
+
+Test
+
+Test 2
