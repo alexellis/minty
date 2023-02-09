@@ -31,3 +31,4 @@ jobs:
           export OPENFAAS_URL=https://minty.exit.o6s.io/
 
           faas-cli list --token "$JWT"
+          faas-cli store deploy printer --token "$JWT"
