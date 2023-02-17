@@ -28,9 +28,10 @@ jobs:
           OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
           
-          export EXCHANGE="https://auth.exit.o6s.io"
-          
-          ACCESS_TOKEN=$(curl -sLS $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE -d "$JWT")
+          EXCHANGE="https://auth.exit.o6s.io"
+
+          echo           ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
+          ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
 
           export OPENFAAS_URL=https://gw.exit.o6s.io/
 
