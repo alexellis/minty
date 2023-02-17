@@ -25,12 +25,11 @@ jobs:
         run: curl -sLS https://cli.openfaas.com | sudo sh
       - name: Get token and use the CLI
         run: |
-          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
-          JWT=$(echo $OIDC_TOKEN | jq -j '.value')
-          
           EXCHANGE="https://auth.exit.o6s.io"
 
-          echo           ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
+          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$EXCHANGE" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+          JWT=$(echo $OIDC_TOKEN | jq -j '.value')
+          
           ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
 
           export OPENFAAS_URL=https://gw.exit.o6s.io/
