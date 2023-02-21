@@ -35,7 +35,7 @@ jobs:
 
           export OPENFAAS_URL=https://gw.exit.o6s.io/
 
-          faas-cli list --token "$ACCESS_TOKEN"
+          faas-cli list -n dev --token "$ACCESS_TOKEN"
           faas-cli ns --token "$ACCESS_TOKEN"
-          faas-cli store deploy printer --token "$ACCESS_TOKEN" -n dev
+          faas-cli store deploy -n dev printer --token "$ACCESS_TOKEN"
 
