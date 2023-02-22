@@ -37,5 +37,5 @@ jobs:
 
           faas-cli list -n dev --token "$ACCESS_TOKEN"
           faas-cli ns --token "$ACCESS_TOKEN"
-          faas-cli store deploy -n dev printer --token "$ACCESS_TOKEN"
+          faas-cli store deploy -n dev printer --name p1 --token "$ACCESS_TOKEN"
 
