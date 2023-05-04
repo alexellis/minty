@@ -27,9 +27,9 @@ jobs:
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
           export OPENFAAS_URL=https://minty.exit.o6s.io/
 
-          faas-cli list -n openfaas-fn --token "$ACCESS_TOKEN"
-          faas-cli ns --token "$ACCESS_TOKEN"
-          faas-cli store deploy printer --name p1 --token "$ACCESS_TOKEN"
+          faas-cli list -n openfaas-fn --token "$JWT"
+          faas-cli ns --token "$JWT"
+          faas-cli store deploy printer --name p1 --token "$JWT"
 
       # - name: Get token and use the CLI
       #   run: |
