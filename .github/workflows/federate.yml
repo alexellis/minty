@@ -26,16 +26,26 @@ jobs:
         run: curl -sLS https://cli.openfaas.com | sudo sh
       - name: Get token and use the CLI
         run: |
-          EXCHANGE="https://auth.exit.o6s.io"
-
           OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$EXCHANGE" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
-          
-          ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
+          export OPENFAAS_URL=https://minty.exit.o6s.io/
 
-          export OPENFAAS_URL=https://gw.exit.o6s.io/
-
-          faas-cli list -n dev --token "$ACCESS_TOKEN"
+          faas-cli list -n openfaas-fn --token "$ACCESS_TOKEN"
           faas-cli ns --token "$ACCESS_TOKEN"
-          faas-cli store deploy -n dev printer --name p1 --token "$ACCESS_TOKEN"
+          faas-cli store deploy printer --name p1 --token "$ACCESS_TOKEN"
+
+      # - name: Get token and use the CLI
+      #   run: |
+      #     EXCHANGE="https://auth.exit.o6s.io"
+
+      #     OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$EXCHANGE" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+      #     JWT=$(echo $OIDC_TOKEN | jq -j '.value')
+          
+      #     ACCESS_TOKEN=$(curl -sLS -d "$JWT" $EXCHANGE/oauth/token?grant_type=urn:ietf:params:oauth:grant-type:token-exchange&audience=$EXCHANGE)
+
+      #     export OPENFAAS_URL=https://gw.exit.o6s.io/
+
+      #     faas-cli list -n dev --token "$ACCESS_TOKEN"
+      #     faas-cli ns --token "$ACCESS_TOKEN"
+      #     faas-cli store deploy -n dev printer --name p1 --token "$ACCESS_TOKEN"
 
