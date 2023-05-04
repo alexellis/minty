@@ -31,8 +31,8 @@ jobs:
           faas-cli ns --token "$JWT"
           faas-cli store deploy printer --name p1 --token "$JWT"
 
-          curl $OPENFAAS_URL/system/function/pq -H "Authorization: Bearer $JWT" | jq
-
+          faas-cli describe p1 --token "$JWT"
+          
       # - name: Get token and use the CLI
       #   run: |
       #     EXCHANGE="https://auth.exit.o6s.io"
