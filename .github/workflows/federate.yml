@@ -26,12 +26,12 @@ jobs:
           OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://minty.exit.o6s.io" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
           export OPENFAAS_URL=https://minty.exit.o6s.io
-
-          curl -v $OPENFAAS_URL/system/functions -H "Authorization: Bearer $JWT"
-
+          
           faas-cli list -n openfaas-fn --token "$JWT"
           faas-cli ns --token "$JWT"
           faas-cli store deploy printer --name p1 --token "$JWT"
+
+          curl $OPENFAAS_URL/system/function/pq -H "Authorization: Bearer $JWT" | jq
 
       # - name: Get token and use the CLI
       #   run: |
