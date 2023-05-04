@@ -5,15 +5,12 @@ on:
   push:
     branches:
     - '*'
-
 jobs:
   auth:
-
     # Add "id-token" with the intended permissions.
     permissions:
       contents: 'read'
       id-token: 'write'
-
 
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +23,7 @@ jobs:
         run: curl -sLS https://cli.openfaas.com | sudo sh
       - name: Get token and use the CLI
         run: |
-          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$EXCHANGE" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://minty.exit.o6s.io" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
           export OPENFAAS_URL=https://minty.exit.o6s.io/
 
