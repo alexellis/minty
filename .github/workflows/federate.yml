@@ -34,6 +34,8 @@ jobs:
 
           faas-cli describe p1 --token "$JWT"
           
+          echo | faas-cli invoke p1
+          
       # - name: Get token and use the CLI
       #   run: |
       #     EXCHANGE="https://auth.exit.o6s.io"
