@@ -34,10 +34,10 @@ jobs:
 
           faas-cli describe p1 --token "$JWT"
           
-          echo | faas-cli invoke p1
-          
           curl -i -s OPENFAAS_URL/function/p1 -H "Autorization: Bearer $JWT"
 
+          echo | faas-cli invoke p1
+          
           
       # - name: Get token and use the CLI
       #   run: |
